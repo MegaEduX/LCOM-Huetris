@@ -61,12 +61,6 @@ int  int_start_handler();
 
 void int_stop_handler();
 
-/// Interrupt Struct
-typedef struct {
-    int enabled;
-    void (*callback)();
-} interrupt;
-
 /**@}*/
 
 #endif /* INTERRUPT_H_ */

@@ -43,6 +43,8 @@ int keyboard_read(void);
 /**
  * @brief Writes to the KBC.
  *
+ * @param port port to write to (normally, mouse or keyboard)
+ * @param input bytes to write
  * @return 0 on success, undefined on failure.
  */
 

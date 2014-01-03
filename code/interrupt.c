@@ -10,7 +10,7 @@
 #include "i8254.h"
 #include "kbc.h"
 
-static interrupt subscribed[MAX_INTERRUPTS];
+static int subscribed[MAX_INTERRUPTS];
 
 static int handler_running;
 
@@ -38,8 +38,7 @@ void int_setMode(kInterruptMode new_mode) {
 }
 
 void _int_reset(int subpos) {
-    subscribed[subpos].enabled = 0;
-    subscribed[subpos].callback = NULL;
+    subscribed[subpos] = 0;
     
     printf("Resetting %d...\n", subpos);
 }
@@ -48,7 +47,7 @@ int int_subscribe(int irq_line, int policy, void (*callback)()) {
     unsigned int subpos = 0, found = 0;
     
     for (; subpos < MAX_INTERRUPTS; subpos++)
-        if (!(subscribed[subpos].enabled)) {
+        if (!subscribed[subpos]) {
             found = 1;
             
             break;
@@ -60,13 +59,13 @@ int int_subscribe(int irq_line, int policy, void (*callback)()) {
         return 1;
     }
     
-    subscribed[subpos].enabled = 1;
+    subscribed[subpos] = 1;
     
     if (sys_irqsetpolicy(irq_line, policy, &subpos))
         return 1;
     
     if (sys_irqenable(&subpos)) {
-        subscribed[subpos].enabled = 0;
+        subscribed[subpos] = 0;
         
         return 1;
     }
@@ -112,7 +111,7 @@ static int int_handler() {
     int subpos = 0, found = 0;
     
     for (; subpos < MAX_INTERRUPTS; subpos++)
-        if (subscribed[subpos].enabled) {
+        if (subscribed[subpos]) {
             found = 1;
             
             break;
@@ -140,7 +139,7 @@ static int int_handler() {
                     for (i = 0; i < MAX_INTERRUPTS; i++) {
                         if (bit_isset(msg.NOTIFY_ARG, i)) {
                             printf("got message for %d\n", i);
-                            if (subscribed[i].enabled != 0) {
+                            if (subscribed[i] != 0) {
                                 switch (irqm) {
                                     case kInterruptModeMainMenu: {
                                         if (i == 1)
