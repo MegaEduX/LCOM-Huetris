@@ -12,6 +12,8 @@ code/interrupt.h -text
 code/kbc.c -text
 code/kbc.h -text
 code/liblcom.h -text
+code/liblm.a -text
+code/libvt.a -text
 code/lmlib.h -text
 code/main.c -text
 code/mouse.c -text
