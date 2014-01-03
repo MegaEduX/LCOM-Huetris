@@ -46,6 +46,5 @@ doc/doxy/Doxyfile -text
 doc/relat/specification.pdf -text
 extra/install.sh -text
 extra/make_docs.sh -text
-extra/specification.pdf -text
 extra/start-huetris -text
 /specification.pdf -text
