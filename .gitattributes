@@ -43,8 +43,9 @@ code/video_gr.c -text
 code/video_gr.h -text
 conf/huetris -text
 doc/doxy/Doxyfile -text
+doc/relat/final-relat-jan14.pdf -text
+doc/relat/specification-dec13.pdf -text
 doc/relat/specification.pdf -text
 extra/install.sh -text
 extra/make_docs.sh -text
 extra/start-huetris -text
-/specification.pdf -text
